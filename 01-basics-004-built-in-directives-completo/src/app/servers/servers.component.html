@@ -1,0 +1,42 @@
+<hr>
+<h3>List of server</h3>
+<button
+    (click)="addNewServer = true"
+    *ngIf="!addNewServer; else addNewServerBlock"
+    class="btn btn-primary">Aggiungi nuovo server</button>
+<ng-template
+    #addNewServerBlock>
+    <div class="card">
+        <div class="card-header">
+            <h6>Aggiungi nuovo server <a (click)="addNewServer = false" href="#">Chiudi</a></h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-8">
+                    <input type="text" [(ngModel)]="serverName" class="form-control">
+                </div>
+                <div class="col">
+                    <button
+                        class="btn btn-primary btn-block"
+                        [disabled]="!serverName"
+                        (click)="onCreateServer()"
+                    >Aggiungi nuovo server</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+
+<p *ngIf="servers.length === 0 ; else serverNumberBlock" class="p-3 text-muted bg-light mt-3">Nessun server ancora creato</p>
+<ng-template #serverNumberBlock>
+    Numero di server:
+    <span
+        [innerText]="servers.length"
+        [ngClass]="{
+            'text-danger': servers.length > 5
+        }"
+    ></span>
+</ng-template>
+
+<app-server *ngFor="let server of servers"></app-server>

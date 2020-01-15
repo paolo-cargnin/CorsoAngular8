@@ -1,0 +1,9 @@
+<p
+    class="text-white p-3"
+    [ngClass]="{
+        'bg-success' : serverStatus === 'online',
+        'bg-danger' : serverStatus === 'offline'
+    }"
+>
+    {{'Server'}} id: {{serverId}}, server status: {{serverStatus}}
+</p>
