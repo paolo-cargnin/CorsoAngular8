@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h3>Secondo esercizio - Lavoriamo con il data binding</h3>
+            <p>Esercizi che svolgeremo insieme</p>
+            <ul>
+                <li>Aggiungiamo due variabile al component <b>server</b>, contenenti l'id del server (<code>serverId</code> ) e l'onlineStatus (<code>onlineStatus</code>)</li>
+                <li><b>String interpolation</b>: Vediamo meglio come possiamo stampare le stringhe (usiamo una funzione e una stringa JS direttamente nel template)</li>
+                <li>Aggiungiamo un pulsante "aggingi nuovo server" nel component <code>servers.component.html</code> e rendiamo disabilitato</li>
+                <li>Aggiungiamo una variabile booleana <code>allowNewServer</code> a false</li>
+                <li>Nel constructor del component aggiungiamo un timeout che abilita la creazione dopo 2 secondi</li>
+                <li>Grazie al <b>Property binding</b> vediamo come collegare variaibile all'attributo html <code>[disabled]</code></li>
+                <li>Vediamo come possiamo stampare una variabile anche con il property Binding <code>[innerText]</code></li>
+                <li><b>Event binding</b>: Aggiungiamo un azione al click del pulsante usando <code>(ngClick)="onCreateServer()"</code> </li>
+                <li>Stampiamo la variabile <code>serverCreationStatus</code>  in un parafrafo HTML, aggiorniamo al click</li>
+                <li>Aggiungiamo un <code>input</code> tag e usiamo l'evento <code>(input)="onUpdateServer($event)"</code></li>
+                <li>Colleghiamo l'input inserito dall'utente ad una variabile <code>serveName</code></li>
+                <li>Concludiamo con il two-way data binding aggiungendo un altro <code>input</code></li>
+            </ul>
+            <p>Esercizio da svolgere da solo:</p>
+            <ul>
+                <li>Rimuovi il paragrafo che stampa il nome del nuovo server</li>
+                <li>Al click del pulsante, fai si che la variabile <code>serverCreationStatus</code> stampi anche il nome del server</li>
+                <li>Sempre al click del pulsante, nella stessa funzione. Resetta il valore del input text</li>
+            </ul>
+            <app-servers></app-servers>
+        </div>
+    </div>
+</div>

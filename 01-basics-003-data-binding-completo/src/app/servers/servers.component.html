@@ -1,0 +1,15 @@
+<hr>
+<h3>List of server</h3>
+
+<input type="text" [(ngModel)]="serverName" class="form-control">
+
+<button
+    class="btn btn-primary"
+    [disabled]="!serverName"
+    (click)="onCreateServer()"
+>Aggiungi nuovo server</button>
+
+<p [innerText]="serverStatus"></p>
+
+<app-server></app-server>
+<app-server></app-server>
