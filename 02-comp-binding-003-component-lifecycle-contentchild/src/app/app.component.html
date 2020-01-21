@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h3>Guardiamo i log</h3>
+      <ul>
+        <li>Vediamo e analizziamo i log presenti in serve-element</li>
+        <li>Controlliamo la differenza tra <code>ngInit</code> e <code>ngAfterViewInit</code></li>
+        <li>Diamo un occhiata a <code>@ContentChild</code></li>
+      </ul>
+    </div>
+  </div>
+  <app-cockpit
+    (serverCreated)="onServerAdded($event)"
+    (bpCreated)="onBlueprintAdded($event)"
+  ></app-cockpit>
+  <hr>
+  <div class="row">
+    <div class="col-12">
+      <button class="btn btn-primary" (click)="onChangeFirst()">Cambia il primo componente</button>
+      <button class="btn btn-danger" (click)="onDestroyFirst()">Elimina il primo componente</button>
+      <app-server-element
+        *ngFor="let serverElement of serverElements"
+        [srvElement]="serverElement"
+        [name]="serverElement.name">
+        <p #contentParagraph>
+          <strong *ngIf="serverElement.type === 'server'" style="color: red">{{ serverElement.content }}</strong>
+          <em *ngIf="serverElement.type === 'blueprint'">{{ serverElement.content }}</em>
+        </p>
+      </app-server-element>
+    </div>
+  </div>
+</div>

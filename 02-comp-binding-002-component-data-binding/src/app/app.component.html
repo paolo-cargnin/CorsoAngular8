@@ -1,0 +1,89 @@
+<div class="container">
+
+  <div class="row">
+    <div class="col-12">
+      <h2>Component data binding</h2>
+      <ol>
+        <li>Guardiamo insieme il funzionamento dell'applicazione</li>
+        <li>Creiamo due componenti:
+            <ul>
+              <li><code>cockpit</code> che conterrà il form per creare nuovi server (o blueprints)</li>
+              <li><code>server-element</code>, che conterrà il singolo server element</li>
+              <li>Ovviamente spostiamo anche le relative funzioni dentro ciascu componente</li>
+            </ul>
+          </li>
+        <li>Aggiungiamo un nuovo server di deafult all'inizio.</li>
+        <li>
+          <b>Binging con custom [properties]</b>
+          <ul>
+            <li>Usando il decorator <code>@Input</code>, riceviamo il nome del server </li>
+            <li>Impostiamo @Input per ricevere la proprietà della classe da un altro attributo</li>
+          </ul>
+        </li>
+        <li>
+          <b>Binging con custom (events)</b>
+          <ul>
+            <li>Aggiungo i metodi <code>onServerAdded</code> e <code>onBluePrintAdded</code></li>
+            <li>Inseriamo i custom event nei relativi pulsanti: <code>(serverCreated)="onServerCreated($event)"</code> e <code>(bluePrintCreated)="onBluePrintCreated($event)"</code></li>
+            <li>Usando il decorator <code>@Output</code> e l'interface <code>EventEmitter</code>, colleghiamo le funzioni del componente <code>cockpit</code>  </li>
+            <li>
+              <em>Psssst...Con EventEmitter puoi impostare il tipo che la funzione deve ritornare: <br></em>
+              <code ngNonBindable>new EventEmitter<serverName: string, serverContent: string>();</code>
+            </li>
+            <li>Impostiamo @Output per ricevere il metodo da un altro attributo</li>
+          </ul>
+        </li>
+        <li>
+          <b>Binding con <code>ng-content</code>, miglioriamo il componente <code>server-element</code> </b>
+        </li>
+        <li>
+          <b>Binding con Local references</b>
+          <ul>
+            <li>
+              Aggiungo riferimento <code>#serverNameInput</code> e leggo il valore solo quando necessario
+            </li>
+            <li>
+              Faccio la stessa cose con <code>serverContentInput</code>, ma uso <code>@viewChild</code> per non passare l'input tramite il file html ma leggerlo direttamente dalla classe. <br>
+              <code> @ViewChild('serverContentInput',  static: false ) serverContentInput: ElementRef; </code>
+             </li>
+
+          </ul>
+        </li>
+      </ol>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-12">
+      <p>Aggiungi un nuovo server o blueprint!</p>
+      <label>Nome del server</label>
+      <input type="text" class="form-control" [(ngModel)]="newServerName">
+      <label>Contenuto del server</label>
+      <input type="text" class="form-control" [(ngModel)]="newServerContent">
+      <br>
+      <button
+        class="btn btn-primary"
+        (click)="onAddServer()">Aggiungi server</button>
+      <button
+        class="btn btn-primary"
+        (click)="onAddBlueprint()">Aggiungi un server blueprint</button>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-12">
+      <div
+        class="card"
+        *ngFor="let element of serverElements">
+        <div class="card-header">{{ element.name }}</div>
+        <div class="card-body">
+          <p>
+            <strong *ngIf="element.type === 'server'" style="color: red">{{ element.content }}</strong>
+            <em *ngIf="element.type === 'blueprint'">{{ element.content }}</em>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

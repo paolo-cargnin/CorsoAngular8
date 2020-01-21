@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h3>Debugging</h3>
+      <ul>
+        <li>Risolviamo il problema con il push</li>
+        <li>Risolviamo il problema con il delete component</li>
+        <li>Guardiamo questa app come è strutturata con Augury</li>
+      </ul>
+      <hr>
+      <h2>My Servers</h2>
+      <button class="btn btn-primary" (click)="onAddServer()">Add Server</button>
+      <br><br>
+      <ul class="list-group">
+        <li
+          class="list-group-item"
+          *ngFor="let server of servers; let i = index"
+          (click)="onRemoveServer(i)">{{ server }}</li>
+      </ul>
+    </div>
+  </div>
+</div>

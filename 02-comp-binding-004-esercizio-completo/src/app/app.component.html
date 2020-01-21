@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12 ">
+      <h3>Tempo di pratica!</h3>
+      <ol>
+        <li>The GameControl Component should have buttons to start and stop the game</li>
+        <li>Crea tre componenti: <code>game-control</code>, <code>even</code>, e <code>odd</code> </li>
+        <li>Il componente game-control avrà due pulsanti: <em>"Inizia gioco"</em> e <em>"Stop"</em> (usa le classi di Bootstrap!) </li>
+        <li>Al click del pulsante start, inizializza un intervallo (usa <code>setInterval</code>) e salvalo nel componente <code>game-control</code> con il nome di <code>interval</code> </li>
+        <li>Tieni conto di quante volte l'intervallo occore, e ogni volta che accade, manda in <code>@Output</code> con un <code>EventEmitter</code> l'evento al compoenent <code>app</code></li>
+        <li>Quando il pulsante di stop viene premuto, elimina l'intervallo usando <code>clearInterval(ref)</code></li>
+        <li>Nel componente app inserisci due colonne, aggiungi un array di numeri dispari e un array di numeri pari</li>
+        <li>Per ogni numero generato dall'intervallo inseriscilo in un array oppure nell'altro</li>
+        <li>Cicla i numeri dispari e pari e stampali ognuno nel rispettivo componente <code>even</code>, o <code>odd</code>.</li>
+        <li>Stampa "Dispari - NUMBER" o "Pari - NUMBER" nei due componenti. IN uno dei due, usa <code>ng-content</code></li>
+        <li>Stilizza a piacere</li>
+      </ol>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <app-game-control (intervalFired)="onIntervalFired($event)"></app-game-control>
+    </div>
+    <div class="col-12 col-md-6">
+      <app-odd *ngFor="let oddNumber of oddNumbers" [number]="oddNumber"></app-odd>
+    </div>
+    <div class="col-12 col-md-6">
+      <app-even *ngFor="let evenNumber of evenNumbers" [number]="evenNumber"></app-even>
+    </div>
+  </div>
+</div>
