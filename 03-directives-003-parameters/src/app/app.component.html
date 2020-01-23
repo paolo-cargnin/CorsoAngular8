@@ -1,0 +1,61 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h2>Iniziamo a parametrizzare le nostre direttive</h2>
+      <p>Una direttiva senza parametri è, generalmente, inutile.</p>
+      <ul>
+        <li><b> <code>@HostListener</code>:</b> Usiamo per ascoltare gli eventi delle direttive</li>
+        <li>
+          Settiamo lo stile "blue" solo quando entriamo con il mouse sul nostro elemento: <br>
+          <code>@HostListener('mouseenter') mouseover(eventData: Event)</code>
+        </li>
+        <li>
+          <b><code>@HostBinding</code>:</b> 
+          Usiamolo per "bindare" la proprietà che vogliamo modificare per la nostra direttiva, ovvero: <br>
+          <code>@HostBinding('style.backgroundColor') backgroundColor: string;</code> <br>
+          <b><em>N.B.:</em></b><em>Può essere usato con qualsiasi proprietà dell'elemento, userà renderer per funzionare</em>
+        </li>
+        <li>
+          <b>Accettiamo parametri</b>, per farlo, utilizziamo il già visto decorator <code>@Input()</code>: <br>
+          <code>@Input() highlightColor: string = 'blue';</code> <br>
+          Specifichiamo quindi la nostra custom property <code>[highlightColor]</code>
+        </li>
+        <li>Usiamo gli alias di <code>@Input</code>  in modo  intelligente, ovvero specificando il nome della nostra direttiva: <br>
+          <code>@Input('appBetterHighlight') highlightColor: string = 'blue';</code>
+        </li>
+        <li>Ovviamente, possiamo fare lo stesso con gli <code>@Output</code></li>
+      </ul>
+      <p>Prova ora a:</p>
+      <ul>
+        <li>Prendere come paramentro un default-value, che verrà messo come background all' <code>ngOnInit</code> e al <code>mouseleave</code> </li>
+        <li>Di deafult il valore è <code>transparent</code>, ma in <code>app.component.html</code> specifica il valore <code>yellow</code></li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <button
+        class="btn btn-primary"
+        (click)="onlyOdd = !onlyOdd">Only show odd numbers</button>
+      <br><br>
+      <ul class="list-group" *ngIf="!onlyOdd">
+        <li
+          *ngFor="let num of oddNumbers "
+          class="list-group-item">
+          {{num}}
+        </li>
+      </ul>
+      <ul class="list-group" *ngIf="onlyOdd">
+        <li
+          *ngFor="let num of evenNumbers "
+          class="list-group-item">
+          {{num}}
+        </li>
+      </ul>
+    </div>
+    <div class="col-12">
+      <p appBasicHighlight>Sono un elemento verde</p>
+      <p appBetterHighlight>Sono un elemento blue</p>
+    </div>
+  </div>
+</div>

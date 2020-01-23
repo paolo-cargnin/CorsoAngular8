@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h2>Creaimo direttiva migliore</h2>
+      <p>Inanzi tutto, <b>cerchiamo di capire perché non è cosa buona agire sui <code>nativeElements</code></b></p>
+      <ul>
+        <li>Usando la cli questa volta, creiamo <code>ng g d better-highlight</code></li>
+        <li>Sistemiamolo nella cartella omonima (da creare) e sistemiamo anche <code>app.module.ts</code></li>
+        <li>Questa volta dal constructor oltre che prendere <code>elementRef</code>, prendiamo anche <code>renderer</code> (tipo: <code>Renderer2</code>)</li>
+        <li>Sul nostro DOM questa volta usiamo <code>this.renderer.setStyle(elementRef, 'property', 'value')</code></li>
+        <li>Con renderer possiamo agire su ogni attributo di un elemento (value, class, style ecc ecc) <a href="https://angular.io/api/core/Renderer2">Maggiori dettagli nella documentazione</a></li>
+        <li>Aggiungiamo un altro elemento con attributo questa volta <code>appBetterHighlight</code> </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <button
+        class="btn btn-primary"
+        (click)="onlyOdd = !onlyOdd">Only show odd numbers</button>
+      <br><br>
+      <ul class="list-group" *ngIf="!onlyOdd">
+        <li
+          *ngFor="let num of oddNumbers "
+          class="list-group-item">
+          {{num}}
+        </li>
+      </ul>
+      <ul class="list-group" *ngIf="onlyOdd">
+        <li
+          *ngFor="let num of evenNumbers "
+          class="list-group-item">
+          {{num}}
+        </li>
+      </ul>
+    </div>
+    <div class="col-12">
+      <p appBasicHighlight>Sono un elemento verde</p>
+      <p appBetterHighlight>Sono un elemento blue</p>
+    </div>
+  </div>
+</div>

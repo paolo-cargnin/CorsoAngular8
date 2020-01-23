@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h2>Creiamo una Structure Directive</h2>
+      <p>L'obbiettivo sarà creare una direttiva *unless (che funziona al contrario di un *ngIf)</p>
+
+      <ul>
+        <li>Capiamo come l'asterisco aiuti noi a non dover usare <code>ng-template</code></li>
+        <li>Creiamo la direttiva <code>ng g d unless</code></li>
+        <li>
+          Salviamoci le proprietà dal <code>constructor</code> che ci serviranno: <code>templeteRef: TemplateRef(any)</code> e <code>vcRef: ViewContainerRef</code> <br>
+          <em>Ci serviranno dopo per, appunto, modificare il dom</em>
+        </li>
+        <li>
+          Ora, la differenza sta semplicemente nel fatto che il nostro <code>@Input()</code> sarà un setter.
+          <br>
+          <code>@Input() set appUnless(condition: boolean)  ... </code>
+        </li>
+        <li>
+          Usiamo vcRef per far visualizzare o meno il nostro elemento:
+          <code>this.vcRef.createEmbeddedView(this.templateRef);</code>
+          <code>this.vcRef.clear();</code>
+        </li>
+        <li>vcRef, proprio come renderer, contiene tutte le funzionalità necessarie per la modifica dei nostri template </li>
+        <li>Usiamo quindi <code>*appUnless</code> nel nostro app.component.html</li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <button
+        class="btn btn-primary"
+        (click)="onlyOdd = !onlyOdd">Only show odd numbers</button>
+      <br><br>
+      <ul class="list-group" *appUnless="onlyOdd">
+        <li
+          *ngFor="let num of oddNumbers "
+          class="list-group-item">
+          {{num}}
+        </li>
+      </ul>
+      <ul class="list-group" *appUnless="!onlyOdd">
+        <li
+          *ngFor="let num of evenNumbers "
+          class="list-group-item">
+          {{num}}
+        </li>
+      </ul>
+    </div>
+    <div class="col-12">
+      <p appBasicHighlight>Sono un elemento verde</p>
+      <p [appBetterHighlight]="'red'" defaultColor="yellow">Style me with a better directive!</p>
+    </div>
+  </div>
+</div>

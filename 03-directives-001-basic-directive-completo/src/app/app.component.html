@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+
+      <h2>Creaimo una basic directive</h2>
+      <p>Inanzi tutto, esercizio di ripasso</p>
+      <ul>
+        <li>usando due <code>*ngIf</code> (e non else) stampa la lista dei numeri pari o quella dei numeri dispari (basandoti sul valore del booleano <code>onlyOdd</code></li>
+        <li>cicla l'elemento <code>li class="list-group"</code> stampando in entrambi i casi i valori dell'array </li>
+        <li>Inserisci la classe (usando <code>[class]</code>) <code>text-danger</code> nelle liste se il numero è maggiore di 2</li>
+        <li>Inserisci lo stile (usando <code>[style]</code>) <code>background-color</code> nelle liste se il minore di maggiore di 4</li>
+      </ul>
+  
+      <p>Vediamo adesso come creare una nostra direttiva</p>
+      <ul>
+        <li>Creiamo cartella <code>basic-highlight</code>, creando la sua classe <code>BasicHighlightDirective</code> ma usando il decorator <code>@Directive</code></li>
+        <li>Nel decorator, specificiamo il selector <code>[appBasicHighlight]</code></li>
+        <li>Nel constructor importiamo <code>private elementRef: ElementRef</code></li>
+        <li>Al ngOnInit (che implementiamo alla classe), usando <code>this.elementRef.nativeElement</code>, diamogli il backgroundColor <code>green</code></li>
+        <li>Aggiungiamo l'elemento in <code>app.component.html</code> con la nostra directive <code>appBasicHighlight</code> </li>
+      </ul>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <button
+        class="btn btn-primary"
+        (click)="onlyOdd = !onlyOdd">Only show odd numbers</button>
+      <br><br>
+      <ul class="list-group" *ngIf="!onlyOdd">
+        <li
+          *ngFor="let num of oddNumbers "
+          class="list-group-item">
+          {{num}}
+        </li>
+      </ul>
+      <ul class="list-group" *ngIf="onlyOdd">
+        <li
+          *ngFor="let num of evenNumbers "
+          class="list-group-item">
+          {{num}}
+        </li>
+      </ul>
+    </div>
+    <div class="col-12">
+      <div appBasicHighlight>Testo con bg verde</div>
+    </div>
+  </div>
+</div>
