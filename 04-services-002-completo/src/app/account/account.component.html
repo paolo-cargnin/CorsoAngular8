@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-12 col-md-8 col-md-offset-2">
+    <h5><b>Nome:</b>{{ account.name }}</h5>
+    <button
+      class="btn"
+      [ngClass]="{
+        'btn-primary' : account.status === 'active',
+        'btn-deafult': account.status !== 'active'
+      }"
+      (click)="onSetTo('active')">
+      active
+    </button>
+    <button
+      class="btn"
+      [ngClass]="{
+        'btn-primary' : account.status === 'inactive',
+        'btn-deafult': account.status !== 'inactive'
+      }"
+      (click)="onSetTo('inactive')">
+      inactive
+    </button>
+    <button
+      class="btn"
+      [ngClass]="{
+        'btn-primary' : account.status === 'unknown',
+        'btn-deafult': account.status !== 'unknown'
+      }"
+      (click)="onSetTo('unknown')">
+      unknown
+    </button>
+  </div>
+</div>
+
