@@ -1,0 +1,71 @@
+<div class="container">
+  <div class="row">
+    <h2>Services - soluzione</h2>
+    <div (click)="instructions = !instructions" class="btn btn-info">Mostra/nascondi istruzioni</div>
+    <ul *ngIf="instructions">
+      <li>Creiamo il nostro primo servizio! <code>LoggingService.ts</code>, inseriamogli il metodo <code>logStatusChange</code></li>
+      <li>
+        <b>Usiamo il nostro servizio:</b> <br>
+        <em>Capiamo perché non va bene usare questa forma</em> <br>
+        <code>
+          const s = new LoggingService(); <br>
+          s.logStatucChange()
+        </code>
+      </li>
+      <li>
+        <b>Dependency injection:</b>
+        Facciamo creare l'istanza in automatico ad Angular, nel file <br>
+        <ol>
+          <li>
+            Inseriamolo nel constructor: <br>
+            <code>constructor( private loggingService: LoggingService )</code> <br>
+          </li>
+          <li>
+            Al decorator del component,aggiungiamolo come provider: <br>
+            <code>
+              providers: [LoggingService]
+            </code>
+          </li>
+          <li>
+            Poi usiamola dove ci serve (quindi al click del nuovo status ):  <br>
+            <code>this.loggingService.logStatusChange(accountStatus)</code>
+          </li>
+        </ol>
+        
+        
+      
+      </li>
+      <li>
+        <b>Aggiungiamo il service per la gestione degli account.</b>
+      </li>
+      <li>
+        <b class="text-danger">DIY</b> Creiamo il file <code>AccountService.ts</code> (per adesso senza <code>ng g s Account</code> ) 
+      </li>
+      <li>
+        Spostiamo nella classe l'array <code>accounts</code>, e i metodi 
+        <code>onAccountAdded</code> e <code>onStatusChanged</code>
+      </li>
+      <li>
+        <b class="text-danger">DIY</b> Inserisco il provider e genero l'istanza per <code>AccountService</code> in <code>app.component.html</code>
+      </li>
+      <li>
+        Ora in <code>ngOnInit</code> ci basta fare: (accounts però va comunque inzializzata nella classe...)<br>
+        <code>this.accounts = this.accounteServices.accounts</code>
+      </li>
+      <li>Sistemiamo <code>new-account.component.ts</code> e <code>account.component.ts</code> per farli comunicare con la nostra classe</li>
+      <li>Capiamo perché gli utenti non vengono aggiunti né aggiornati.</li>
+
+    </ul>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 ">
+      <app-new-account (accountAdded)="onAccountAdded($event)"></app-new-account>
+      <hr>
+      <app-account
+        *ngFor="let acc of accounts; let i = index"
+        [account]="acc"
+        [id]="i"
+        (statusChanged)="onStatusChanged($event)"></app-account>
+    </div>
+  </div>
+</div>
