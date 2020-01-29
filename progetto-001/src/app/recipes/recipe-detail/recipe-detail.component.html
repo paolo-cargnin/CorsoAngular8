@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-xs-12">
+  <div class="col-12">
     <img
       [src]="recipe.imagePath"
       alt="{{ recipe.name }}"
@@ -8,14 +8,14 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-xs-12">
+  <div class="col-12">
     <h1>{{ recipe.name }}</h1>
   </div>
 </div>
 <div class="row">
-  <div class="col-xs-12">
+  <div class="col-12">
     <div
-      class="btn-group"
+      class="btn-group dropdown"
       appDropdown>
       <button
         type="button"
@@ -23,15 +23,15 @@
         Gestisci ricette <span class="caret"></span>
       </button>
       <ul class="dropdown-menu">
-        <li><a href="#">Manda alla shopping list</a></li>
-        <li><a href="#">Modifica ricette</a></li>
-        <li><a href="#">Elimina ricette</a></li>
+        <li class="dropdown-item"><a href="#">Manda alla shopping list</a></li>
+        <li class="dropdown-item"><a href="#">Modifica ricette</a></li>
+        <li class="dropdown-item"><a href="#">Elimina ricette</a></li>
       </ul>
     </div>
   </div>
 </div>
 <div class="row">
-  <div class="col-xs-12">
+  <div class="col-12">
     {{ recipe.description }}
   </div>
 </div>
