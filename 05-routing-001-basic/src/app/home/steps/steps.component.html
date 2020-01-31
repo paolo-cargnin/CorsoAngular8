@@ -1,0 +1,108 @@
+<app-step title="1- Setup">
+    <ul>
+        <li>Diamo un occhiata al progetto</li>
+        <li>Creiamo il file <code>app-routing.module.ts</code>, stiamo per creare il nostro primo Modulo!</li>
+        <li>Nel nuovo file, creiamo la classe <code>AppRoutingModule</code> e usiamo il decorator <code>@NgModule</code></li>
+        <li>
+            Il nostro modulo,  importerà: <br>
+            <code>RouterModule.forRoot()</code> <br>
+            ed esporterà
+            <code>[RouterModule]</code>
+        </li>
+        <li>Importiamo AppRoutingModule in <code>app.module.ts</code></li>
+    </ul>
+</app-step>
+
+<app-step title="2- Inseriamo le pagine e colleghiamole nell'applicativo ">
+    <ul>
+        <li>in <code>app-routing.module.ts</code> inseriamo un oggetto <code>appRoutes</code> di tipo <code>Routes</code> che sarà l'array con tutte le nostre rotte.</li>
+        <li>Inseriamo la rotta per il component home. Specifichiamo <code>path</code> e <code>component</code> da caricare </li>
+        <li>Inseriamo La path <code>servers</code> (non serve la slash) per il component  <code>ServersComponent</code> </li>
+        <li>Inseriamo <code>appRoutes</code> dentro <code>RouterModule.forRoot(appRoutes)</code> </li>
+        <li><b class="text-danger">DIY:</b> Inserite la path per <code>users</code></li>
+        <li>Vediamo che comunque non sta cambiando niente, aggiungiamo <code>router-outlet</code></li>
+        <li>Impariamo ad usare la directive <code>routerLink</code></li>
+        <li>Usiamo un altra direttiva, per stilizzare l'active nel nostro menu di navigazione: <code>routerLinkActive</code> </li>
+        <li>Sistemiamo usando <code>[routerLinkActiveOptions]="exact: true"</code></li>
+        <li>Come si comporta la direttiva <code>routerlink</code> quando viene usata con il property binding ( <code>[routerLink]</code> )? </li>
+        <li>
+            Facciamo degli esempi per capire <code>absolutePath</code> e <code>relativePath</code>: <br>
+            dentro a servers.component.html inseriamo un link: <br>
+            <code><a routerLink="servers">Servers</a></code>
+
+        </li>
+    </ul>
+</app-step>
+
+<app-step title="03-Navigazione da dentro il componente">
+    <ul>
+        <li>Inseriamo il pulsante "modifica server" in <code>server.compomnent.html</code> con l'evento <code>(click)="onEdit()"</code></li>
+        <li>In <code>server.compoenent.ts</code> importiamo prima di tutto <code>router:Router</code></li>
+        <li>Scriviamo la funzione <code>onEdit</code> e scrivamo <code>this.router.navigate(['/servers'])</code></li>
+        <li>Se scriviamo <code>['servers']</code> non va su <code>/servers/servers</code>, perchè?</li>
+        <li>Aggiungiamo l'active route e diciamogli di fare riferimento con il secondo paramentro di navigate: <code>relativeTo: this.route</code>relativeTo: </li>
+    </ul>
+</app-step>
+<app-step title="04-Assegnare parametri alle rotte">
+    <ul>
+        <li>Vediamo come possiamo caricare un url diverso per il dettagli di ogni utente</li>
+        <li>Aggiungiamo una path e specifichiamo il primo parametro: <code>/:id</code></li>
+        <li>Vediamo come possiamo prenderlo grazie a <code>this.route.snapshot.params</code></li>
+        <li>Stampiamo in <code>user.component.html</code> l'id dell'utente richiesto</li>
+        <li><b class="text-danger">DIY</b>Prova a aggiungere alla stessa path il paramentro <code>:name</code> e stampalo</li>
+        <li>Inseriamo in <code>user.component.html</code> un link, usando la direttiva [routrLink] ad un altro utente (eg: /users/paolo/9)</li>
+        <li>L'url cambia ma non cambia la variabile! Perchè?</li>
+        <li>Usiamo le observable con <code>this.route.params</code></li>
+        <li><b>Ultima nota:</b> Le subscribe vengono automaticamente tolte all' <code>ngOnDestroy</code></li>
+    </ul>
+</app-step>
+<app-step title="04-Query e fragment">
+    <ul>
+        <li>Non solo params, ma possiamo gestire anche queryParams (<code>?param=value</code>) e fragments (<code> #text</code>)</li>
+        <li>Creiamo la route <code>/servers/:id/edit</code>, che porta a EditServerComponent</li>
+        <li>In servers aggiungo il <code>routerLink</code> a /servers/5/edit</li>
+        <li>Per aggiungere un queryParams all'url di <code>routerLink</code> usiamo la proprietà (<b>non direttiva!</b>) <code>[queryParams]</code></li>
+        <li>Aggiungiamo <code>allowEdit: 1</code></li>
+        <li>Per i fragment, è la stessa cosa,con la proprietà <code>[fragment]</code></li>
+        <li>Per fare la stessa code con navigate, ci basterà usare nel secondo parametro le opzioni <code>queryParama</code> e <code>fragment</code></li>
+        <li><b class="text-danger">DIY:</b> sapendo che per ottenere <code>queryParams</code> e <code>fragmente</code> si usa allo stesso modo, stampa in <code>edit-server.component.html</code> la soluzione</li>
+        <li><b class="text-danger">DIY:</b> Dinamicizziamo i componenti prendendo i parametri :id di user e server</li>
+        <li (click)="trick=!trick" [ngStyle]="{opacity: trick ? 1: 0}"><b>ehehe.</b>Dobbiamo controllare i tipi con <code>+</code></li>
+    </ul>
+</app-step>
+<app-step title="05-Rotte figlie (child routes)">
+    <ul>
+        <li>Al momento, stiamo caricando <code>server-edit.compomnent.html</code> senza il menù laterale di <code>server.component.html</code></li>
+        <li><b class="text-danger">DIY:</b>Aggiungiamo la nostra ultima route: <code>/servers/:id</code> e dinamicizziamola</li>
+        <li>Per ogni rotta padre, possiamo usare il parametro <code>children</code>... Inception!</li>
+        <li>Ci basta poi completare inserendo nel componente caricato dalla rotta padre la direttiva <code>router-outlet</code></li>
+        <li><b class="text-danger">DIY:</b>Fallo con user.</li>
+        <li>Rendiamo navigabili i menu di <code>users.componenet.html</code> e <code>servers.componenet.html</code></li>
+    </ul>
+</app-step>
+<app-step title="06-Usare i query params">
+    <ul>
+        <li>
+            Aggiungiamo un pulsante in <code>server.component.html</code> che mandi ad /edit
+        </li>
+    </ul>
+    <p><b>Esercizio veloce, applicando tutte le varie regole:</b></p>
+    <ul>
+        <li>Aggiungiamo il queryParams <code>allowEdit</code> nel menu di <code>servers.component.html</code> uguale a 1 solo per il server con id 3</li>
+        <li>Rendiamo visibile il form solo tramite il queryParams <code>allowEdit===1</code></li>
+        <li>inseriamo un <code>*ngIf</code> per nascondere il form </li>
+    </ul>
+    <p>Usiamo queryParamHandling</p>
+    <ul>
+        <li>Cliccando su modifica server, non stiamo mantenendo l'allowEdit</li>
+        <li>Usiamo <code>queryParamHandling:'merge'</code> </li>
+        <li>Può anche essere preserve, e ignorerà i valori nuovi che vogliamo mandargli</li>
+    </ul>
+</app-step>
+<app-step title="07-Redirect e wildcard">
+    <ul>
+        <li>Aggiungiamo un component: <code>n g c page-not-found</code></li>
+        <li>Aggiungiamo la path per <code>not-found</code></li>
+        <li><code>path: '**', redirectTo: '/not-found' </code></li>
+    </ul>
+</app-step>

@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col-12">
+    <h4>Gestione Utenti</h4>
+  </div>
+  <div class="col col-md-4">
+    <div class="list-group">
+      <a
+        href="#"
+        class="list-group-item"
+        *ngFor="let user of users">
+        {{ user.name }}
+      </a>
+    </div>
+  </div>
+  <div class="col-12 col-md">
+    <app-user></app-user>
+  </div>
+</div>
+
+

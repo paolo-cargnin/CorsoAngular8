@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col-12">
+    <h4>Gestione server</h4>
+  </div>
+  <div class="col-12 col-md-4">
+    <div class="list-group">
+      <a
+        href="#"
+        class="list-group-item"
+        *ngFor="let server of servers">
+        {{ server.name }}
+      </a>
+    </div>
+  </div>
+  <div class="col-12 col-md">
+    <app-edit-server></app-edit-server>
+    <hr>
+    <app-server></app-server>
+  </div>
+</div>
+
