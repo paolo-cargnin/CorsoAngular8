@@ -1,0 +1,50 @@
+<app-step title="01- Setup">
+    <ul>
+        <li>Diamo un occhiata al progetto</li>
+        <li>In <code>home.component.ts</code> inseriamo la nostra prima observable: <code>interval(1000)</code> (da rxjs)</li>
+        <li>Aggiungiamo il subscribe, con un <code>console.log(data)</code> </li>
+        <li>Cambiando la pagina, vediamo che rimane il nostro count, ritornando, se ne aggiunge uno</li>
+        <li>Usiamo <code>ngOnDestroy</code> per sistemare</li>
+    </ul>
+</app-step>
+
+<app-step title="02- Creiamo la nostra prima observable">
+    <ul>
+        <li>Usiamo <code>Observable</code>, importata da rxjs. <code>Observable.create(observer => ...)</code></li>
+        <li>Scriviamo la logica per un <code>setInterval</code>, quando vuoi "emettere" un valore, usa <code>observer.next()</code></li>
+        <li>Usiamo il subscribe allo stesso modo</li>
+        <li>Usando l'error, causiamo un error quando <code>count > 3</code> con <code>observer.error(new Error('....'))</code></li>
+        <li>Per fare il "subscribe" di un error, usiamo il secondo parametro della funzione <code>.subscribe</code></li>
+        <li>Inseriamo ora <code>observer.complete()</code> quando <code>count===2</code> </li>
+    </ul>
+</app-step>
+
+
+<app-step title="03 - Operators">
+    <ul>
+        <li>Spendiamo qualche secondo a capire cosa sono, come funzionano e perché usarle.</li>
+        <li>Per usare un operator, ci basta usare il metodo <code>.pipe()</code> legato con una funzione di <code>rxjs</code></li>
+        <li>Scriviamo, prima del subscribe: <code>customIntervalObservable.pipe(map(data => ... ))</code></li>
+        <li>Modifichiamo il dato perchè ritorni una stringa: <code>'il prossimo numero è '+count</code></li>
+        <li>Al subscribe facciamo solo <code>console.log(data)</code></li>
+        <li>Facciamo un esempio con filter</li>
+        <li>Tutti gli operator sono trovabili qui: <a href="https://www.learnrxjs.io/learn-rxjs/operators">https://www.learnrxjs.io/learn-rxjs/operators</a></li>
+    </ul>
+</app-step>
+
+<app-step title="04 - Subject">
+    <ul>
+        <li>Ricordati: <b>Sono degli EventEmmiter</b>, ma sono fatti con le observables.</li>
+        <li>
+            <b class="text-danger">DIY: </b>  Aggiungiamo un button in <code>user.component.html</code>
+            <ul>
+                <li>Al click voglio far si che venga visualizzato in <code>home.component.html</code> un <code>p</code> con la scritta "Pulsante attivato"</li>
+                <li>Fallo creando un servizio <code>user.service.ts</code> e un EvetnEmitter</li>
+            </ul>
+        </li>
+        <li>Vediamo ora <code>@Injectable(providedIn : 'root')</code></li>
+        <li>Invece di usare <code>new EventEmitter()</code>, usiamo <code>new Subject()</code></li>
+        <li>Invece di <code>.emit</code>, usiamo <code>.next</code></li>
+        <li>Ora che con Subject stiamo usando le observables, dobbiamo ricordarci però di fare <code>unsubscribe.</code></li>
+    </ul>
+</app-step>
