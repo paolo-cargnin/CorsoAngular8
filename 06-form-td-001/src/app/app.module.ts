@@ -4,10 +4,14 @@ import { FormsModule } from '@angular/forms';
 
 
 import { AppComponent } from './app.component';
+import { StepsComponent } from './steps/steps.component';
+import { StepComponent } from './steps/step/step.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    StepsComponent,
+    StepComponent
   ],
   imports: [
     BrowserModule,

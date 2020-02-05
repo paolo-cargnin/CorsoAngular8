@@ -1,0 +1,73 @@
+<app-step title="01 - Setup e binding">
+    <ul>
+        <li><b>Importante</b>: Tutto è fatto da <code>FormsModule</code></li>
+        <li>Guardiamo il form all'interno di <code>app.component.html</code>, non ha ne action ne method.</li>
+        <li>Come prima cosa, per ogni input che vogliamo controllare inseriamo la directive <code>ngModel</code>, senza 2-way binding</li>
+        <li>Aggingiamo l'attributo <code>name</code> agli input (username, email, secretQuestion)</li>
+    </ul>
+</app-step>
+<app-step title="02 - Submit del form">
+    <ul>
+        <li>Aggiugniamo la funzione submit, usiamo la direttiva <code>(ngSubmit)</code></li>
+        <li>Dobbiamo però accedere ai dati. Il primo dato importante è il form. <b>Local Reference!</b> Usiamo <code>#f</code> </li>
+        <li>Passiamo <code>f</code> come attributo all'onSubmit e Facciamo un <code>console.log(form)</code>. Del tipo <code>HTMLFormElement</code> non ce ne facciamo niente</li>
+        <li>Usiamo il Local reference per dire ad angular come vogliamo ottenere il form: <code>#f="ngForm</code></li>
+        <li>Guardiamo il console.log(). Cosa sono <code>dirty</code>,<code>disabled</code>,<code>touched</code> ecc?</li>
+        <li><b class="text-danger">DIY: </b> Utilizziamo il nostro form (nel console.log()) attraverso <code>@Viewchild('f') signUpForm: NgForm</code> e non con il parametro.</li>
+    </ul>
+</app-step>
+
+<app-step title="03 - Validazione">
+    <ul>
+        <li>Se un valore è richiesto, nell'html basterà aggiungere il parametro <code>required</code></li>
+        <li>Si possono aggiungere altri parametri specifici per la validazione, esempio: <code>email</code>. <a href="https://angular.io/api/forms/Validators">Lista di tutte le direttive per la validazione</a></li>
+        <li>Mandiamo il form al submit, vediamo che l'attributo <code>valid</code> cambia, così come <code>touched</code></li>
+        <li>Vediamo inoltre che nel nostro input element ci sono un bel po' di classi: <code>nb-touched</code>, <code>ng-invalid</code> ecc ecc</li>
+        <li><b class="text danger">DIY:</b> Rendiamo il pulsante di submit disabilitato quando il form non è valido.</li>
+        <li>Stilizziamo con un <code>boder: 1px solid red;</code> la classe ng-invalid</li>
+        <li><b class="text-danger">DIY: </b><b>Miglioriamo l'esperienza utente</b>, modifica il css includendo lo stile anche per <code>select</code> e aggiungendo la classe <code>ng-touched</code></li>
+        <li><b>Come accedere ad ogni singola input?</b> Facile, con il local Reference <code>#email="ngModel"</code></li>
+        <li><b class="text-danger">DIY</b>: Quando ce n'è bisogno, sotto alla mail stampa un paragrafo: "mail non corretta"</li>
+    </ul>
+</app-step>
+
+
+
+<app-step title="04 - Grouping">
+    <ul>
+        <li>Vediamo i primi limiti dei template driven forms</li>
+        <li>Come gestire strutture di dati che hanno dei figli? Inseriamo al loro div padre <code>ngModelGroup ="userData"</code></li>
+        <li>Possiamo accederci con il localRef <code>#userData="ngModelGroup"</code></li>
+    </ul>
+</app-step>
+
+<app-step title="05 - Radio button">
+    <ul>
+        <li>Aggiungiamo un array di opzioni al component: <code>genders = ['maschio','femmina'] </code></li>
+        <li><b class="text-danger">DIY</b>: Stampiamo i nostri radio buttons con l'aiuto di *ngFor</li>
+        <li>Con l'aiuto di <code>[value]</code>, il gioco è fatto</li>
+    </ul>
+</app-step>
+
+<app-step title="05 - Radio button">
+    <ul>
+        <li>Aggiungiamo un array di opzioni al component: <code>genders = ['maschio','femmina'] </code></li>
+        <li><b class="text-danger">DIY</b>: Stampiamo i nostri radio buttons con l'aiuto di *ngFor</li>
+        <li>Con l'aiuto di <code>[value]</code>, il gioco è fatto</li>
+    </ul>
+</app-step>
+
+
+<app-step title="06 - Settare il valore dei nostri input">
+    <ul>
+        <li>Per settare il valore dei nostri input, il metodo più veloce è quello di usare il property binding, quindi <code>[ngModel]</code></li>
+        <li><b class="text-danger">DIY</b>: Usa <code>[ngModel]</code> Per assegnare il valore di default alla select <code>teacher</code></li>
+        <li>Il 2-way binding lo usiamo solo quando vogliamo accedere costantemente alla variabile. Aggiungiamo una textarea chiamata <code>answer</code> e subito sotto stampiamone il risultato.</li>
+    </ul>
+    <p>Vediamo ora come settare l'intero valore del form: </p>
+    <ul>
+        <li>Ad <code>ngOnInit()</code> usiamo il metodo <code>this.signUpForm.setValue(this.user)</code></li>
+        <li>Usiamo ora <code>this.signUpForm.form.patchValue</code>, guardiamone la differenza</li>
+        <li><b class="text-danger">DIY:</b>Al submit del form, fai visualizzare in basso un <code>div</code> che riassume tutti i dati raccolti dell'utente.</li>
+    </ul>
+</app-step>
