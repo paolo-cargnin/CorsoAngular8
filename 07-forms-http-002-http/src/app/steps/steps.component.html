@@ -1,0 +1,119 @@
+<app-step title="01- Setup ">
+    <ul>
+        <li>Creaiamo il nostro database su <b>Firebase!</b></li>
+        <li>Andiamo su database> realtime database > "start in test mode"</li>
+    </ul>
+</app-step>
+
+<app-step title="02- Eseguire chiamate http">
+    <ul>
+        <li>Importiamo <code>httpClientModule</code> da <code>@ancular/common/http</code> in <code>app.module</code></li>
+        <li>Importiamo <code>HttpClient</code> in <code>app.component</code></li>
+        <li>Scriviamo al submit del form: <code>this.http.post('/url di firabase/posts.json',postData )</code></li>
+        <li>Apriamo il network tab e vediamo che non è partito nulla. Fintanto che non eseguiamo la subscribe, la chiamata non parte</li>
+        <li>Scriviamo <code>.subscribe(responseData => console.log(responseData)</code> ed diamo un occhiata al network tab</li>
+        <li>Creo funzione <code>fetchPosts</code></li>
+        <li>Eseguiamola all' <code>ngOninit</code> e aggiungiamo un <code>this.http.get(...).subscribe()</code> guardiamo il console.log.</li>
+    </ul>
+</app-step>
+
+
+
+
+<app-step title="03- Eseguire l'output del dati">
+    <ul>
+        <li>Per manipolare l'oggetto ricevuto, useremo <code>rxjs</code> e le pipes</li>
+        <li>Con l'observable operator <code>map</code>, trasformiamo l'oggeto in array usando <code>for (const key in responseData)</code>, usiamo l'id e ritorniamo l'array</li>
+        <li>P.s.: è buona norma controllare che la  proprietà esista <code>if (responseData.hasOwnProperty(key))</code></li>
+        <li>
+            <b>Usiamo i tipi di typescript!</b>
+            <ul>
+                <li>Usiamo i tipi nel map di responseData: <code>[key]:string: Post</code></li>
+                <li>Creiamo <code>Post.model.ts</code> ed esportiamo <code>interface</code> Post con la struttura del singolo post</li>
+                <li>Ora inseriamo il tipo Post in <code>fetchPosts</code>   e anche in <code>onCreatePost</code></li>
+                <li>
+                    <b>Nota</b> Invece di specificare il tipo nel map, possiamo usarlo nel metodo get (perché è un generic method), inseriaom il tipo con questa sintassi: <br>
+                    <code>this.http.get < tipo ></code>
+                </li>
+                <li>Inseriamo anche il tipo in post ( dipende dalla risposta di firebase)</li>
+            </ul>
+        </li>
+        <li>
+            Assegno <code> this.loadedPosts</code> uguale a <code> posts</code> 
+        </li>
+        <li><b class="text-danger">DIY:</b>Aggiung *ngIf per far vedere i post quando ci sono</li>
+        <li><b class="text-danger">DIY:</b>Stampo una lista con tutti i post, usando <code>ul</code> e <code>li</code></li>
+        <li><b class="text-danger">DIY:</b> Mostra un loading per il fetching</li>
+    </ul>
+</app-step>
+
+<app-step title="04- Usare un servizio">
+    <ul>
+        <li>Creaiamo <code>posts.service.ts</code>, usiamo <code>@Injectable providedIn: root</code></li>
+        <li>Agguingiamo i metodi <code> createAndStore</code> e <code> fetchPosts</code></li>
+        <li>Spostiamo le http request (+ le dipendenze)</li>
+        <li>Rimuoviamo tutte le cose relative al componente </li>
+        <li>Fermiamoci un attimo e discutiamo: Come possiamo comunicare tra componente e servizio?</li>
+        <li [ngStyle]="{opacity:hide? '1':'0'}" (click)="hide=!hide">Usiamo <code>return</code> e teniamo il subscribe lato componente</li>
+        <li>Alla crreate non abbiamo bisogno della risposta... lasciamo il subscribe nel service</li>
+        <li>
+            <b class="text-danger">DIY</b> Provate a fare la deletePosts sapendo che <br>
+            il metodo da usare è <code>this.http.delete</code>, l'url è lo stesso per fare il fetch
+        </li>
+        <li>
+            Il primo che ci arriva può cancellare i post degli altri!
+        </li>
+    </ul>
+</app-step>
+
+<app-step title="05- Gestire gli errori">
+    <li>
+        Setto le impostazioni del nostro firebase con read uguale a false, proviamo la nostra app e vediamo che resta in loading
+    </li>
+    <li>
+        Come prendere l'error dall'observable? Secondo parametro del subscribe!
+    </li>
+    <li>
+        <b class="text-danger">DIY:</b> Gestisci l'error anche nell'html ;) 
+    </li>
+    <li>
+        Non sempre si gestiscono gli errori nel componente... In questo caso potremmo creare una subject ad un servizio apposito
+    </li>
+    <li>
+        Usiamo il <b>catchError</b> operator, dentro la pipe come secondo parametro. <code> return throwError(errorRes)</code>
+    </li>
+</app-step>
+
+<app-step title="06- Interceptors">
+    <ul>
+        <li>
+            Aggiungiamo un header a tutte le chiamate http.
+        </li>
+        <li>
+            aggiungiamo <code>auth-interceptors.service.ts</code> e chiamiamolo AuthInteceptorService che implementa HttpInterceptor
+        </li>
+        <li>
+            Aggiungiamo il console log e torniamo next.handle(req)
+        </li>
+        <li>
+            Provide questo servizio in modo importante, usando un oggetto che ha:
+            <ul>
+                <li>
+                    <code> provide: HTTP_INTERCEPTORS,</code>
+                </li>
+                <li>
+                    <code>useClass: AuthInteceptorService</code>
+                </li>
+                <li>
+                    <code>multi: true</code>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <p>Gestiamo tutte le risposte</p>
+    <ul>
+        <li>Aggiungiamo <code>.pipe( tap(event)=> ...)</code></li>
+        <li>Faccio il check che l'evento che sta arrivando sia una risposta: <code>event.type === HttpEventType.Response</code></li>
+        <li>Aggiungiamo console log e guardiamo il risultato</li>
+    </ul>
+</app-step>
